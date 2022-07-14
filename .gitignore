@@ -1,3 +1,7 @@
+# Operating Specific file types
+.DS_store
+desktop.ini 
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
