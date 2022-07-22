@@ -55,3 +55,15 @@ To Be Added Soon...
     *   `myopia-pca-tSNE.ipynb`
     *   `myopia-pca-kMeans-KNN.ipynb`
 
+## Create environment for LazyClassifier
+1.  conda create -n PythonML python=3.6 anaconda
+1.  conda install -c anaconda nb_conda_kernels
+1.  conda install -c conda-forge/label/cf202003 nodejs
+1.  pip install scikit-learn==0.23.1
+1.  pip install sklearn-utils
+1.  pip install --upgrade pyforest
+1.  python -m pyforest install_extensions
+1.  pip install lazypredict  
+
+Note:  I am using Jupyter Lab (might be the reason step 3 is needed)
+
