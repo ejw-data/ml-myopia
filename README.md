@@ -8,16 +8,23 @@ Author:  Erin James Wills, ejw.data@gmail.com
 
 <br>
 
+>Note:  This repo is used for exploring different machine learning techniques. The dataset was selected due to the difficulty of developing a solid model without inappropriately coercing the data.  This is an ongoing project.  
+
 ## Overview  
 <hr>  
 
-Clustering used to identify nearsighted patients  
+This repo explores multiple machine learning techniques to identify nearsighted patients.  
 
-This dataset has actually had multiple publications over the past few years and it appears that the abstracts determine that the data provided in the full dataset has very limited predictive abilities.  After looking at the subset of data, I would agree and one of the main issues with my analysis revolves around the dataset being too small.  
+This dataset is a subset of the `Orinda Longitudinal Study of Myopia (OLSM)` dataset which observed children starting from about 5 to 9 years old for a period of six years.  The data in the subset appears to be data collected upon their initial enrollment in the study and whether the subject developed myopia during the 6 year timeframe.  Myopic was defined as when a subject has a spherical equivalent refraction (SPHEQ) measurement of less than -0.75D.  It should be noted that initial SPHEQ was recorded but changes in this variable over time were not included nor was the date when the subject was verified as having myopia.  
 
-In my analysis, I tested several different methods.  Initially, I just ran a KNN model to see its predictive value.  The model was not able to predict positive myopia cases.  By oversampling, the data so the dataset was more balanced between myopia positive and negative patients, I was able to get some predicive ability from the model.  I continued to use pca and t-SNE to determine if there were some relationships - some patterns were observeable.  
+Having the entire dataset covering the entire range of measurements would be interesting especially when determining the rate of change in SPHEQ.  Although this is an interesting problem, analyzing the data over time would probably be a better method than the snapshot in time provided.  
 
-As the last exploratory task, I decided to see if I could run a kMeans algorithm on the data and deterine if any of the groupings could provide additional predictive value.  At first it seemed promising but upon changing the random_state of the datasplits, the results change significantly; leading me to think the data set is too small to get a representative training sample.   
+**I chose this dataset to apply to machine learning due to several factors.  First, I know the answer is not clearcut (due to inherent latent factors, dataset size, dataset quality, dataset consistency, etc.) and requires a significant effort to explore the data.  Second, myopia has been studied quite a bit even in 2020 and the predictive value from varying datasets is not very good. Some of the best studies have derived an AUC between 0.801 and 0.837[1] for predicitng myopia progression.**  
+
+It is difficult to say absolutely but this subset of data appears to have been used in multiple publications over the past few years and may exist as a case study in some textbooks; although, I do not have direct access to verify.  What I have seen is questionable applications of models or at least questionable methods of reporting of the results.  Which makes me interested in analyzing the problem and applying different machine learning techniques.  
+
+[1] <cite>Zhang C, Zhao J, Zhu Z, Li Y, Li K, Wang Y, Zheng Y. Applications of Artificial Intelligence in Myopia: Current and Future Directions. Front Med (Lausanne). 2022 Mar 11;9:840498. doi: 10.3389/fmed.2022.840498. PMID: 35360739; PMCID: PMC8962670. Url: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8962670/</cite>  
+
    
 <br>  
 
@@ -37,6 +44,9 @@ Reduced dataset from [Orinda Longitudinal Study of Myopia conducted by the US Na
 
 ## Analysis  
 
+### Exploratory Data Analysis
+*  Checking each feature based on a ranking method (boxplot) shows that 42% of the 618 records have no outliers in any of the features.  Other features like age shows that most records are with 6 year olds so this analysis will only consider 6 year olds.  I will use this `ideal` dataset initially.
+*  After looking at several hypothesis tests to determine relationship to the target value (MYOPIC), the most important features are `SPHEQ`, `SPORTHR`, `DADMY` and `total_positive_screen`.  
 ### Classification  
 *  myopia-KNN.ipynb
     Unbalanced Data:
