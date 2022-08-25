@@ -10,6 +10,6 @@ Can I chart it??
 
 Run full random forest model.
 
-
-
+Model evaluation is finding the right combination of:
+Model = Data Preparation + Learning Algorithm + Hyperparameters
 
