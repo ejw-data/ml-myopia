@@ -44,6 +44,36 @@ Reduced dataset from [Orinda Longitudinal Study of Myopia conducted by the US Na
 
 ## Analysis  
 
+Process:
+1.  Start with a Goal
+1.  Data Search
+1.  Exploratory Data Analysis
+1.  Analyze the Ask
+1.  Set Priorities and Limits
+1.  Select Intial Process (Model)
+1.  Re-evaluate the Goal and Value
+1.  Preprocess Data for Algorithm
+    *  Remove Unnecessary Features
+    *  Remove Outliers
+    *  Replace Missing Values
+    *  Balance Data
+    *  One-hot-encode Feature Classes
+    *  Label-encode Target Classes
+    *  Transform Data (for parametric algorithms)
+    *  Scale Data (distance or gradient descent or regularized algorithms)
+1.  Run Model 
+1.  Evaluate Models
+    *  Classification Reports
+    *  ROC AUC or Precision-Recall AUC
+1.  Adjust Models
+    *  Changing Theshold Effects
+    *  Tuning Parameters
+    *  Remove Features
+1.  Select Best Model
+1.  Re-evaluate the Ask?
+
+
+
 ### Exploratory Data Analysis
 *  Checking each feature based on a ranking method (boxplot) shows that 42% of the 618 records have no outliers in any of the features.  Other features like age shows that most records are with 6 year olds so this analysis will only consider 6 year olds.  I will use this `ideal` dataset initially.
 *  After looking at several correlation tests or independence tests to determine relationships to the target value (MYOPIC), the most important features are `SPHEQ`, `SPORTHR`, `DADMY` and `total_positive_screen`.  
