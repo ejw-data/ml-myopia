@@ -63,11 +63,13 @@ Overall I am trying to find the right combination of data preparation, algorithm
 ### Data Balancing
 > The dataset is 13% myopic cases.  This is fairly significantly imbalnced.  
 
-*  Due to the outlier filtering performed in the Exploratory Data Analysis step, most balancing techniques did not distort the distribution significantly and most balanced datasets performed similarly when looking at the cross validation calculations.  
-*  I need to compare the unfiltered dataset to see how much balancing effects the distribution of numbers.  
+*  Probably due to the outlier filtering performed in the Exploratory Data Analysis step, most balancing techniques did not distort the distribution significantly and most balanced datasets performed similarly when looking at the cross validation calculations.   
+*  I need to compare the unfiltered dataset to see how much balancing effects the distribution to better understand the limits of balancing.  
 *  Some skepticism exists if the holdout dataset is large enough to make a valid prediction and evaluation.
-*  In summary,   
-*  
+*  In summary, most of the models performed very similarly.  The two best balancing methods seemed to be ADASYN and SMOTE.  Both methods resulted in models with an ROC AUC of ~0.66; recall of ~0.59, and precision of 0.19.  
+*  In the future, I might want to add the standard deviation to the cross validation metrics and also add the precision-recall AUC as an additional metric for evaluation.       
+*  An example of how the threshold in the classifier can be changed from 50% to other values to modify the cross validation results.  For right now this problem can keep the standard threshold.  
+
 <br>
 
 ### Classification  
