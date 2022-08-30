@@ -42,37 +42,13 @@ Reduced dataset from [Orinda Longitudinal Study of Myopia conducted by the US Na
 
 <br>
 
+## Process  
+
+Overall I am trying to find the right combination of data preparation, algorithm selection, and algorithm tuning to make the best model possible.  For full details of my process then see the [process writeup](./docs/process.md).
+
+<br>
+
 ## Analysis  
-
-Process:
-1.  Start with a Goal
-1.  Data Search
-1.  Exploratory Data Analysis
-1.  Analyze the Ask
-1.  Set Priorities and Limits
-1.  Select Intial Process (Model)
-1.  Re-evaluate the Goal and Value
-1.  Preprocess Data for Algorithm
-    *  Remove Unnecessary Features
-    *  Remove Outliers
-    *  Replace Missing Values
-    *  Balance Data
-    *  One-hot-encode Feature Classes
-    *  Label-encode Target Classes
-    *  Transform Data (for parametric algorithms)
-    *  Scale Data (distance or gradient descent or regularized algorithms)
-1.  Run Model 
-1.  Evaluate Models
-    *  Classification Reports
-    *  ROC AUC or Precision-Recall AUC
-1.  Adjust Models
-    *  Changing Theshold Effects
-    *  Tuning Parameters
-    *  Remove Features
-1.  Select Best Model
-1.  Re-evaluate the Ask?
-
-
 
 ### Exploratory Data Analysis
 *  Checking each feature based on a ranking method (boxplot) shows that 42% of the 618 records have no outliers in any of the features.  Other features like age shows that most records are with 6 year olds so this analysis will only consider 6 year olds.  I will use this `ideal` dataset initially.
@@ -82,6 +58,17 @@ Process:
 *  Plots indicate that only `SPHEQ` is important to the target, especially when viewed without any filtered data.  
 *  It should also be noted that the filtered df has only 34 myopic cases and 233 non-myopic cases.  This is very unbalanced data.  
 *  The analysis of feature interactions was done with partial depenence plots (PDP) and Individual conditional expectation (ICE) plots.  Only `AL` showed feature-feature interactions.  `SPHEQ` showed to be influenced the most while the other features showed very little relation to the target.     
+
+
+### Data Balancing
+> The dataset is 13% myopic cases.  This is fairly significantly imbalnced.  
+
+*  Due to the outlier filtering performed in the Exploratory Data Analysis step, most balancing techniques did not distort the distribution significantly and most balanced datasets performed similarly when looking at the cross validation calculations.  
+*  I need to compare the unfiltered dataset to see how much balancing effects the distribution of numbers.  
+*  Some skepticism exists if the holdout dataset is large enough to make a valid prediction and evaluation.
+*  In summary,   
+*  
+<br>
 
 ### Classification  
 *  myopia-KNN.ipynb
