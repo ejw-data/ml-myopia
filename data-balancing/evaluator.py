@@ -20,7 +20,7 @@ def model_evaluate(steps, cv, Xtrain, ytrain, Xtest, ytest):
     # Cross Validation Report
     cv_report(cv, pipeline, Xtrain, ytrain)
     # Cross Validation Folds
-    cv_splits(cv, Xtrain, ytrain)
+    cv_splits(cv, pipeline, Xtrain, ytrain)
     # Holdout Testing
     holdout_report(pipeline, Xtrain, ytrain, Xtest, ytest)
     # Holdout Plot metrics 
@@ -44,18 +44,35 @@ def cv_report(cv, pipeline, Xtrain, ytrain):
     print("\n")
 
 
-def cv_splits(cv, Xtrain, ytrain):
-
-    # print('Resample dataset shape', Counter(y_smote))
+def cv_splits(cv, pipeline, Xtrain, ytrain):
     print(f"-----"*10)
     print("\n")
     print(f"Cross Validation Datasets")
-    X_train_np = Xtrain.to_numpy()
-    y_train_np = ytrain.to_numpy()
-    for train_index, test_index in cv.split(X_train_np, y_train_np):
+
+    sampling_type1 = pipeline.steps[0][0]
+    try:
+        sampling_type2 = pipeline.steps[1][0]
+    except:
+        sampling_type2 = 'none'
+
+    if (sampling_type1 == 'over' or sampling_type1 == 'under') and (sampling_type2 == 'over' or sampling_type2 == 'under'):
+        sampler1 = pipeline.steps[0][1]
+        sampler2 = pipeline.steps[1][1]
+        X_resampled, y_resampled = sampler1.fit_resample(Xtrain, ytrain)
+        X_resampled, y_resampled = sampler2.fit_resample(X_resampled, y_resampled)
+
+    elif sampling_type1 == 'over' or sampling_type1 == 'under':
+        sampler1 = pipeline.steps[0][1]
+        X_resampled, y_resampled = sampler1.fit_resample(Xtrain, ytrain)
+
+    else:
+        X_resampled = Xtrain.to_numpy()
+        y_resampled = ytrain.to_numpy()
+
+    for train_index, test_index in cv.split(X_resampled, y_resampled):
         # select rows
         # train_X, test_X = X_train_np[train_index], X_train_np[test_index]
-        train_y, test_y = y_train_np[train_index], y_train_np[test_index]
+        train_y, test_y = y_resampled[train_index], y_resampled[test_index]
         # summarize train and test composition
         train_0, train_1 = len(train_y[train_y==0]), len(train_y[train_y==1])
         test_0, test_1 = len(test_y[test_y==0]), len(test_y[test_y==1])
