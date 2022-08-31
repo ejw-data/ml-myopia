@@ -51,75 +51,42 @@ Overall I am trying to find the right combination of data preparation, algorithm
 ## Analysis  
 
 ### Exploratory Data Analysis
-*  Checking each feature based on a ranking method (boxplot) shows that 42% of the 618 records have no outliers in any of the features.  Other features like age shows that most records are with 6 year olds so this analysis will only consider 6 year olds.  I will use this `ideal` dataset initially.
-*  After looking at several correlation tests or independence tests to determine relationships to the target value (MYOPIC), the most important features are `SPHEQ`, `SPORTHR`, `DADMY` and `total_positive_screen`.  
-*  It should also be noted that there is a strong correlation between ``AL` and `VCD`.  
-*  As shown in the VIF analysis, `SPHEQ`, `SPORTHR`, `DADMY` and `total_positive_screen` were evaluated as significant since their VIF scores were all less than 5.  This matches the results of the correlation/independence tests.  
-*  Plots indicate that only `SPHEQ` is important to the target, especially when viewed without any filtered data.  
-*  It should also be noted that the filtered df has only 34 myopic cases and 233 non-myopic cases.  This is very unbalanced data.  
-*  The analysis of feature interactions was done with partial depenence plots (PDP) and Individual conditional expectation (ICE) plots.  Only `AL` showed feature-feature interactions.  `SPHEQ` showed to be influenced the most while the other features showed very little relation to the target.     
 
+> For more information about the feature selection, see my [notes](./eda/exploratory.md) or read the notes and summaries from the [notebooks](./eda/)
+
+*  For this analysis I decided that it would be fine to work on a highly filtered dataset and then redo the process several times with more variation in the data with each iteration.  
+*  The final dataset has data of only 6 year olds and about 260 records after removing records that may be considered outliers (extreme cases), special cases, or faulty data.
+*  Of the available features, I selected to use `SPHEQ`, `SPORTHR`, `DADMY` and `total_positive_screen` as signficant features and I also included `ACD`', `LT`, and `VCD` for future experiments.  All the testing I performed indicated that the same varialbes were important.  I should also note that in my future analyses that I used `delta_spheq` instead of `SPHEQ` but the two are very similar.  The label or target is `MYOPIC`.
+*  Interacting features could be `AL` since it's partial dependence plot showed some positive and negative results.  `SPHEQ` is alos an interesting variable but it will be left in the dataset.  
 
 ### Data Balancing
 > The dataset is 13% myopic cases.  This is fairly significantly imbalnced.  
 
-*  Probably due to the outlier filtering performed in the Exploratory Data Analysis step, most balancing techniques did not distort the distribution significantly and most balanced datasets performed similarly when looking at the cross validation calculations.   
-*  I need to compare the unfiltered dataset to see how much balancing effects the distribution to better understand the limits of balancing.  
-*  Some skepticism exists if the holdout dataset is large enough to make a valid prediction and evaluation.
-*  In summary, most of the models performed very similarly.  The two best balancing methods seemed to be ADASYN and SMOTE.  Both methods resulted in models with an ROC AUC of ~0.66; recall of ~0.59, and precision of 0.19.  
-*  In the future, I might want to add the standard deviation to the cross validation metrics and also add the precision-recall AUC as an additional metric for evaluation.       
-*  An example of how the threshold in the classifier can be changed from 50% to other values to modify the cross validation results.  For right now this problem can keep the standard threshold.  
-*  Tests were also run to see the effect of using weights on a RandomForest model.  It appears that balancing the data has much more significant results and that weights could be used to fine tune the model.  
-*  BalancedRandomForest performed the best with only precision receiving lower scores.  A model that could be useful for predicting with high precision is the RandomForests with SMOTE or AdaBoost.  
-* Modifying the theshold was done using the SVC algorithm and using the .predict_proba() function and calculating the new cutoff point.  This showed significant changes in the model.  ADASYN and Smote with SVC performed the best but not as well as some of the other models.  This process would be best to do during parameter tuning.  
+> For more information about the data balancing experiments, see my [notes](./data-balancing/balancing.md) or read the notes and summaries from the [notebooks](./data-balancing/)
+
+__Balancing Effect on Distributions__ 
+*  SMOTE or ADASYN seem to work the best when balancing but with this dataset the integrity of the distribution is largely maintained so there are no major distortions when using the other tested methods.  Dataset size is the main issue so undersampling may cause problems.   
+
+__Model Performance using Weighted Targets__ 
+*  Oversampling techniques seem to have a greater influence than using the RandomForest balancing feature.  By applying SMOTE or ADASYN and then setting the algorithm to further balance the target if any imbalance exists might better fine tune the model. 
+
+__Classifier Threshold Effect on Precision and Recall__ 
+*  For parametric algorithms, adjusting a binary classifiers threshold can have significant effects since it changes the precision and recall balance.  This can be a significant change but needs to be done sensibly and with the context of the problem and goal in mind.   I tested this idea with an SVC algorithm.  This could be a practical step in the model selection step but I would need more data to evaluate its broader reliability (with untrained data).  I should do this test with random forest classifier (even though it is not parametric) so I can compare to other tests I have done; the effect of thresholds should still exist but I need to think about this.
+
+__Imbalance Effects on Tree Models__ 
+*  Often tree based models like RandomForests can have siginficant differences compared to the other models.  After looking at four different algorithms with and without SMOTE balancing, I found that BalancedRandomForest to provide good results except for precision.  I question how it's undersampling is effecting the model but there is not an immediate method that exists to access the data it uses after undersampling - I will need to delve into the source code.  This algorithm might be favoring recall intentionally over precision.  The key take-away of this analysis is that trees are sensitive to imbalances and balancing and bagging greatly increase the models predictive abilities.  I would say that I also like RandomForest with SMOTE balancing as a model.   
+
 <br>
 
 ### Classification  
-*  myopia-KNN.ipynb
-    Unbalanced Data:
-    *  k=5
-    *  Accuracy: 88% 
-    *  Precision: 0%
-    *  Recall: 0%
-    Summary:  This model predicts everything as False and has no predictive power.  The reason why it predicts this way is becasue the data is unbalanced.  
 
-    Balanced Data with Oversampling:
-    *  k = 7
-    *  Accuracy:  76%
-    *  Precision:  23%
-    *  Recall:  44%
-    Summary:  This model has some predictive power.  It correctly predicts negative results 92% of the time and positive results 23% of the time.  
+> Note:  The original repo contained just a couple models but I started exploring the entire modeling process at a later time and expanded the repo into a multi-part analysis.  I am currently updating the orignal models to utilize some of the information found during the EDA and Balancing experiment.  
 
-*  myopia-gridsearch-SVC-pipeline.ipynb  
-    Unbalanced Data:
-    *  PCA Components:  10
-    *  Accuracy: 89%
-    *  Precision:  57%
-    *  Recall:  22%
-    *  Summary:  This model does a much better job at predicting.  
+> For more information about the models, see my [notes](./classification/models.md) or read the notes and summaries from the [notebooks](./classification/)
 
-    Balanced Data with Oversampling
-    *  PCA Components:  10
-    *  Accuracy:  88%
-    *  Precion:  0%
-    *  Recall: 0%
-    Summary:  Balancing followed by PCA reduced predictive ability.  
-
-*  myopia-multimodel-compare.ipynb  
-    Model Report indicated these are the best models:  
-    *  NearestCentroid
-    *  DesicisonTreeClassifier
-    *  AdaBoostClassifier
-    *  Perceptron
-    *  LogisticRegression
-    All show 60%+ Accuracy when balanced
-    and show 77% Accuracy with unbalanced.  F1 Scores are typically over 80%.  
-
-*  myopia-keras.ipynb 
-    Sequential Model with 2 hidden layers with each one having 16 nodes.  
-    *  Accuracy:  86%  
-    *  Precision:  40%
-    *  Recall:  10%
+*  A variety of models were run and more are being added as time permits.  More models can be found within the `data-balancing` folder.  Those models were specifically testing the effects of imbalanced data.  The contents of this folder are testing a variety of models.
+*  As an experiment, I tested the LazyClassifier library but I am not yet confident in its use.  I prefer to use the models directly from scikit-learn since I understand the interworkings better.  This library returns the results of many models in a nice table format.  I use it to guide what models I might want to explore in detail.  The file is named `myopia-multimodel-compare.ipynb`
+*  
 
 ### Clustering
 
