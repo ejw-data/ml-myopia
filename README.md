@@ -86,34 +86,13 @@ __Imbalance Effects on Tree Models__
 
 *  A variety of models were run and more are being added as time permits.  More models can be found within the `data-balancing` folder.  Those models were specifically testing the effects of imbalanced data.  The contents of this folder are testing a variety of models.
 *  As an experiment, I tested the LazyClassifier library but I am not yet confident in its use.  I prefer to use the models directly from scikit-learn since I understand the interworkings better.  This library returns the results of many models in a nice table format.  I use it to guide what models I might want to explore in detail.  The file is named `model-multimodel-compare.ipynb`
-*  Other models tested:
-    *  KNN
-    *  ANN
-*  Other techniques applied include:
-    *  PCA
-    *  Hyperparameter Tuning
-*  Overall 
+*  KNN and ANN were other models tested along with methods to improve the model like PCA feature reduction and hyperparameter tuning.  
 
 ### Clustering
 
-*  myopia-pca-kMeans.ipynb  
-    Unbalanced data
-    *  PCA components: 10 (90+% Variance Explained)  
-    *  KMeans Clusters: 3 is better than 4 or 5
-    *  Tested KNN on first cluster
-        *  With K: 3 and oversampling, Cluster 1:  
-        *  Accuracy:  64%
-        *  Precision: 12%
-        *  Recall: 22%
-    Note:  A noticable decrease in accuracy compared to KNN with Balanced Data (see above).
-
-    Balanced data with over sampling
-    *  PCA components:  
+> For more information about clusting, see my [notes](./clustering/groups.md) or read the notes and summaries from the [notebooks](./clustering/)
 
 
-*  myopia-pca-kMeans-KNN.ipynb   
-
-*  myopia-pca-tSNE.ipynb  
 
 <br>
 
@@ -122,16 +101,18 @@ __Imbalance Effects on Tree Models__
     *  Python 3.6+  
     *  pandas  
     *  scikit-learn
-    *  imb-learn
+    *  imb-learn  
+    >  I am using a conda to manage my environment
     >To install imb-learn:  `conda install -c conda-forge imbalanced-learn`
 1. Clone the repo to your local machine
 1. Activate your environment in that directory  
 1. Open a Jupyter Notebook   
-1. Run any of the following notebooks:  
-    *   `myopia-KNN.ipynb` 
-    *   `myopia-pca-kMeans.ipynb`
-    *   `myopia-pca-tSNE.ipynb`
-    *   `myopia-pca-kMeans-KNN.ipynb`
+1. Run any of the notebooks in these folders:  
+    *  `eda`
+    *  `data-balancing`
+    *  `classification`
+    *  `clustering`
+    > The notebooks are commented and commentary provided in the markdown file in each folder.  
 
 ## Create environment for LazyClassifier
 In gitbash or terminal, perform the following commands:
