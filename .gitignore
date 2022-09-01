@@ -1,6 +1,7 @@
 # Operating Specific file types
 .DS_store
 desktop.ini 
+archive/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

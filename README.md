@@ -85,8 +85,14 @@ __Imbalance Effects on Tree Models__
 > For more information about the models, see my [notes](./classification/models.md) or read the notes and summaries from the [notebooks](./classification/)
 
 *  A variety of models were run and more are being added as time permits.  More models can be found within the `data-balancing` folder.  Those models were specifically testing the effects of imbalanced data.  The contents of this folder are testing a variety of models.
-*  As an experiment, I tested the LazyClassifier library but I am not yet confident in its use.  I prefer to use the models directly from scikit-learn since I understand the interworkings better.  This library returns the results of many models in a nice table format.  I use it to guide what models I might want to explore in detail.  The file is named `myopia-multimodel-compare.ipynb`
-*  
+*  As an experiment, I tested the LazyClassifier library but I am not yet confident in its use.  I prefer to use the models directly from scikit-learn since I understand the interworkings better.  This library returns the results of many models in a nice table format.  I use it to guide what models I might want to explore in detail.  The file is named `model-multimodel-compare.ipynb`
+*  Other models tested:
+    *  KNN
+    *  ANN
+*  Other techniques applied include:
+    *  PCA
+    *  Hyperparameter Tuning
+*  Overall 
 
 ### Clustering
 

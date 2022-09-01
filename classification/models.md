@@ -1,7 +1,7 @@
 # Model Selection
 
 ### Notes from model testing experiments
-*  myopia-KNN.ipynb
+*  model-KNN.ipynb
     Unbalanced Data:
     *  k=5
     *  Accuracy: 88% 
@@ -16,7 +16,7 @@
     *  Recall:  44%
     Summary:  This model has some predictive power.  It correctly predicts negative results 92% of the time and positive results 23% of the time.  
 
-*  myopia-gridsearch-SVC-pipeline.ipynb  
+*  model-SVC-gridsearch.ipynb  
     Unbalanced Data:
     *  PCA Components:  10
     *  Accuracy: 89%
@@ -31,7 +31,7 @@
     *  Recall: 0%
     Summary:  Balancing followed by PCA reduced predictive ability.  
 
-*  myopia-multimodel-compare.ipynb  
+*  model-multimodel-compare.ipynb  
     Model Report indicated these are the best models:  
     *  NearestCentroid
     *  DesicisonTreeClassifier
@@ -41,7 +41,7 @@
     All show 60%+ Accuracy when balanced
     and show 77% Accuracy with unbalanced.  F1 Scores are typically over 80%.  
 
-*  myopia-keras.ipynb 
+*  model-keras.ipynb 
     Sequential Model with 2 hidden layers with each one having 16 nodes.  
     *  Accuracy:  86%  
     *  Precision:  40%
