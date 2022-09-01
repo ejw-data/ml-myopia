@@ -38,7 +38,7 @@
     Balanced Data with SMOTE, PCA, SVC class weighting and Gridsearch
     Summary:  I think this model is overfitting.  I have high train scores but low test scores and the numbers just don't make sense.  I limited the values that the hyperparameters would test with to see if the overfitting could be stopped.  I was able to get some values that made fore sense but only by using high C values.  When running a separate cross validation, I was able to get precision and recall values a bit higher than past models.  I'm not sure about this model since I manually forced the C regularization term to be very high.  The class weighting basically did not help in any way since this model is nearly identical to the version without weighting and in some instances I think the weighting is contributing to the overfitting.  
 
-    Final Summary:  I think that linear SVC just has a hard time fitting this model well.  The SVC parameter that allows for balancing may be fine to use when that is the only imbalance correcting done but otherwise it seems to contribute more to overfitting.   
+    Final Summary:  I think that linear SVC just has a hard time fitting this model well.  The SVC parameter that allows for balancing may be fine to use when that is the only imbalance correcting done but otherwise it seems to contribute more to overfitting.  In general PCA helps a little bit but the biggest contributor to improving the model with this dataset is using oversampling.   
 
 *  model-multimodel-compare.ipynb  
     Model Report indicated these are the best models:  
@@ -49,9 +49,10 @@
     *  LogisticRegression
     All show 60%+ Accuracy when balanced
     and show 77% Accuracy with unbalanced.  F1 Scores are typically over 80%.  
+    My main preference is that it would include the Precision and Recall scores since I like to look at those individually instead of looking at the weighed combination of the two with the f1 score.  The ROC AUC can also be a bit misleading for models that have similar scores since they can have dramatically different precision and recall scores.  I am thinking about including a precision-recall metric to all my evaluations since that may be more helpful with imbalanced data.  
 
 *  model-keras.ipynb 
     Sequential Model with 2 hidden layers with each one having 16 nodes.  
-    *  Accuracy:  86%  
-    *  Precision:  40%
-    *  Recall:  10%
+    *  Accuracy:  0.88  
+    *  Precision:  0.57
+    *  Recall:  0.33
