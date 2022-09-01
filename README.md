@@ -1,4 +1,4 @@
-# ml-clustering-myopia
+# ml-myopia
 
 Author:  Erin James Wills, ejw.data@gmail.com  
 
@@ -60,7 +60,7 @@ Overall I am trying to find the right combination of data preparation, algorithm
 *  Interacting features could be `AL` since it's partial dependence plot showed some positive and negative results.  `SPHEQ` is alos an interesting variable but it will be left in the dataset.  
 
 ### Data Balancing
-> The dataset is 13% myopic cases.  This is fairly significantly imbalnced.  
+> The dataset is 13% myopic cases.  This is fairly significantly imbalanced.  
 
 > For more information about the data balancing experiments, see my [notes](./data-balancing/balancing.md) or read the notes and summaries from the [notebooks](./data-balancing/)
 
@@ -102,7 +102,7 @@ __Imbalance Effects on Tree Models__
     *  pandas  
     *  scikit-learn
     *  imb-learn  
-    >  I am using a conda to manage my environment
+    >  I am using conda to manage my environment
     >To install imb-learn:  `conda install -c conda-forge imbalanced-learn`
 1. Clone the repo to your local machine
 1. Activate your environment in that directory  
@@ -112,9 +112,9 @@ __Imbalance Effects on Tree Models__
     *  `data-balancing`
     *  `classification`
     *  `clustering`
-    > The notebooks are commented and commentary provided in the markdown file in each folder.  
+    > The notebooks are commented and a markdown file in each folder has additional commentary.  
 
-## Create environment for LazyClassifier
+## Create Environment for LazyClassifier
 In gitbash or terminal, perform the following commands:
 1.  Type `conda create -n PythonML python=3.6 anaconda`
 1.  Type `conda install -c anaconda nb_conda_kernels`
@@ -125,7 +125,7 @@ In gitbash or terminal, perform the following commands:
 1.  Type `python -m pyforest install_extensions`
 1.  Type `pip install lazypredict`  
 
-Note:  I am using Jupyter Lab (might be the reason step 3 is needed)
+Note:  I am using Jupyter Lab (might be the reason step 3 is needed). These instructions are needed to run [`classification/model-multimodel-compare.ipynb`](./classification/).
 
 
 ## Examples  
