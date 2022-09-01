@@ -1,0 +1,7 @@
+# Reasons for Selecting this Dataset
+
+**I chose this dataset to apply to machine learning due to several factors.  First, I know the answer is not clearcut (due to inherent latent factors, dataset size, dataset quality, dataset consistency, etc.) and requires a significant effort to explore the data.  Second, myopia has been studied quite a bit even in 2020 and the predictive value from varying datasets is not very good. Some of the best studies have derived an AUC between 0.801 and 0.837[1] for predicitng myopia progression.**  
+
+It is difficult to say absolutely but this subset of data appears to have been used in multiple publications over the past few years and may exist as a case study in some textbooks; although, I do not have direct access to verify.  What I have seen is questionable applications of models or at least questionable methods of reporting of the results.  Which makes me interested in analyzing the problem and applying different machine learning techniques.  
+
+[1] <cite>Zhang C, Zhao J, Zhu Z, Li Y, Li K, Wang Y, Zheng Y. Applications of Artificial Intelligence in Myopia: Current and Future Directions. Front Med (Lausanne). 2022 Mar 11;9:840498. doi: 10.3389/fmed.2022.840498. PMID: 35360739; PMCID: PMC8962670. Url: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8962670/</cite>  

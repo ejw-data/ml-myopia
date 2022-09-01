@@ -13,17 +13,21 @@ Author:  Erin James Wills, ejw.data@gmail.com
 ## Overview  
 <hr>  
 
-This repo explores multiple machine learning techniques to identify nearsighted patients.  
+This repo explores multiple machine learning techniques to identify children that may develop nearsightedness.  The initial goal was to only run several models and compare the results but later I decided I wanted to create a multiphase analysis project where I could do the following:
+*  Split a dataset with a variety of features into a low, medium, and high variance subsets.
+*  Run a series of experiments on each dataset to see which model (feature selection, preprocessing, algorithm selection, tuning, and evaluation metrics) performs the best.
+*   The process has currently been processed on a low variance subset with the following steps:
+    *  Feature Selection and Cleaning - outlier detection, correlation, VIF feature identification, feature interactions
+    *  Data Balancing - sampling techniques, target weighting, evaluation threshold changes
+    *  Algorithm Testing - preprocessing (previous steps), feature reduction, hyperparameter tuning, model evaluation, overfitting adjustments  
 
-This dataset is a subset of the `Orinda Longitudinal Study of Myopia (OLSM)` dataset which observed children starting from about 5 to 9 years old for a period of six years.  The data in the subset appears to be data collected upon their initial enrollment in the study and whether the subject developed myopia during the 6 year timeframe.  Myopic was defined as when a subject has a spherical equivalent refraction (SPHEQ) measurement of less than -0.75D.  It should be noted that initial SPHEQ was recorded but changes in this variable over time were not included nor was the date when the subject was verified as having myopia.  
+The project status is that most of the experimenting on the low variance dataset is complete and the code is being refactored and modified to use pipelines.    
 
-Having the entire dataset covering the entire range of measurements would be interesting especially when determining the rate of change in SPHEQ.  Although this is an interesting problem, analyzing the data over time would probably be a better method than the snapshot in time provided.  
+## Limitations
 
-**I chose this dataset to apply to machine learning due to several factors.  First, I know the answer is not clearcut (due to inherent latent factors, dataset size, dataset quality, dataset consistency, etc.) and requires a significant effort to explore the data.  Second, myopia has been studied quite a bit even in 2020 and the predictive value from varying datasets is not very good. Some of the best studies have derived an AUC between 0.801 and 0.837[1] for predicitng myopia progression.**  
+The dataset is a subset from the `Orinda Longitudinal Study of Myopia (OLSM)` study.  Having the entire dataset covering the entire range of measurements would be interesting especially when determining the rate of change in SPHEQ.  Although this is an interesting problem, analyzing the data over time would probably be a better method than the snapshot in time provided.  
 
-It is difficult to say absolutely but this subset of data appears to have been used in multiple publications over the past few years and may exist as a case study in some textbooks; although, I do not have direct access to verify.  What I have seen is questionable applications of models or at least questionable methods of reporting of the results.  Which makes me interested in analyzing the problem and applying different machine learning techniques.  
-
-[1] <cite>Zhang C, Zhao J, Zhu Z, Li Y, Li K, Wang Y, Zheng Y. Applications of Artificial Intelligence in Myopia: Current and Future Directions. Front Med (Lausanne). 2022 Mar 11;9:840498. doi: 10.3389/fmed.2022.840498. PMID: 35360739; PMCID: PMC8962670. Url: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8962670/</cite>  
+> For information about the reasons I selected this dataset and the scope of the project, please read my [project scoping document](./docs/scope.md).
 
    
 <br>  
@@ -39,6 +43,8 @@ It is difficult to say absolutely but this subset of data appears to have been u
 
 ## Data Source  
 Reduced dataset from [Orinda Longitudinal Study of Myopia conducted by the US National Eye Institute](https://clinicaltrials.gov/ct2/show/NCT00000169)
+
+This study observed children starting from about 5 to 9 years old for a period of six years.  The data in the subset appears to be data collected upon their initial enrollment in the study and whether the subject developed myopia during the 6 year timeframe.  Myopic was defined as when a subject has a spherical equivalent refraction (SPHEQ) measurement of less than -0.75D.  It should be noted that initial SPHEQ was recorded but changes in this variable over time were not included nor was the date when the subject was verified as having myopia.
 
 <br>
 
