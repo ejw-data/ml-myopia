@@ -1,9 +1,5 @@
 # Summary of models
 
-# Produce a table of all the model parameters
-# Only need to input a few model parameters as lists.
-# each list can contain tuples that indicate how the object should be
-# used as a 
 # import numpy as np
 import pandas as pd
 # import matplotlib.pyplot as plt
@@ -19,16 +15,20 @@ from sklearn.svm import SVC
 from sklearn.metrics import classification_report
 from imblearn.over_sampling import SMOTE
 
+
+#  Add gridsearch in the future???
+# # set gridsearch parameters
+# params = {
+#     "svc__C": [0.0001, 0.001, 0.01, 0.1, 1, 5, 10, 50, 100, 1000],
+#     "pca__n_components":[4,5,6,7]
+# }
+
+# # gridsearch with 5 fold cross validation setup
+# grid = GridSearchCV(pipeline, params);
+
+
 summary=[]
 holdout=[]
-# 5 fold cross validation
-cv = StratifiedKFold(n_splits=5)
-
-# create process steps
-pipes = [
-    ("scaler", StandardScaler()),
-    ("svc", SVC(random_state=2))
-]
 
 def model_compare(X_train, y_train, X_test, y_test, labels, pipes, cv):
     # create pipeline
@@ -40,8 +40,24 @@ def model_compare(X_train, y_train, X_test, y_test, labels, pipes, cv):
     train_class_report = classification_report(y_train, y_train_pred, output_dict=True)
     y_test_pred = pipeline.predict(X_test)
     test_class_report = classification_report(y_test, y_test_pred, output_dict=True)
-    holdout.append({"class":labels[0], train_class_report['0']})
-    holdout.append({"class":labels[1], train_class_report['1']})
+    
+    train_class_report_0 = train_class_report['0']
+    train_class_report_1 = train_class_report['1']
+    train_class_report_0['class'] = labels[0]
+    train_class_report_1['class'] = labels[1]
+    train_class_report_0['split'] = "train"
+    train_class_report_1['split'] = "train"
+
+    holdout.append(train_class_report_0)
+    holdout.append(train_class_report_1)
+
+    test_class_report_0 = train_class_report['0']
+    test_class_report_1 = train_class_report['1']
+    test_class_report_0['class'] = labels[0]
+    test_class_report_1['class'] = labels[1]
+    test_class_report_0['split'] = "test"
+    test_class_report_1['split'] = "test"
+    
     # evaluation metrics
     scoring = ('f1', 'recall', 'precision', 'roc_auc')
 
@@ -62,14 +78,4 @@ def model_compare(X_train, y_train, X_test, y_test, labels, pipes, cv):
         'ROC AUC': mean(scores['test_roc_auc'])
     })
 
-    return summary
-
-
-# set gridsearch parameters
-params = {
-    "svc__C": [0.0001, 0.001, 0.01, 0.1, 1, 5, 10, 50, 100, 1000],
-    "pca__n_components":[4,5,6,7]
-}
-
-# gridsearch with 5 fold cross validation setup
-grid = GridSearchCV(pipeline, params);
+    return summary, holdout
