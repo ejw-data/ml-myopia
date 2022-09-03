@@ -53,6 +53,5 @@
 
 *  model-keras.ipynb 
     Sequential Model with 2 hidden layers with each one having 16 nodes.  
-    *  Accuracy:  0.88  
     *  Precision:  0.57
     *  Recall:  0.33
