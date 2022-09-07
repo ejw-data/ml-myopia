@@ -16,8 +16,6 @@ from sklearn.svm import SVC
 from sklearn.metrics import classification_report, precision_recall_curve, auc
 from imblearn.over_sampling import SMOTE
 
-
-
 summary=[]
 
 def model_compare(scenario, X_train, y_train, X_test, y_test, labels, pipes, cv="", tuner_params=""):
