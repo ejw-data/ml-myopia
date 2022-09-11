@@ -21,3 +21,5 @@ Steps:
         *  75/25        (30% ..)
         *  66.6/33.4    (20% ..)
         *  50/50        (10% ..)
+
+Based on running model based upon the splits above, the test X dataset needs to be at least 200 samples large to get valid results.  In reality the test dataset should probably need to be a couples larger than this number.  The variance doesn't change as much as I was expecting so I don't think I have enough data.
